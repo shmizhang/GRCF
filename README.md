@@ -47,7 +47,7 @@ Our implementation is based on [mmf](https://github.com/facebookresearch/mmf) fr
   
 ## Running the code:
 
-*  to train the grmncf model on the TextCaps training set:
+*  to train the grmncf model on the TextCaps training set to get `best.model`:
 
 ```bash
 CUDA_VISIBLE_DEVICES=0,1 mmf_run datasets=cnmtdata \
@@ -57,7 +57,7 @@ CUDA_VISIBLE_DEVICES=0,1 mmf_run datasets=cnmtdata \
     run_type=train_val   
 ```
 
- * to generate prediction json files on the validation set:
+ * Using `best.model` to generate prediction json files on the validation set:
  
  ```bash
  CUDA_VISIBLE_DEVICES=1 mmf_predict datasets=cnmtdata \
@@ -65,10 +65,10 @@ CUDA_VISIBLE_DEVICES=0,1 mmf_run datasets=cnmtdata \
     config=projects/grmncf/configs/grmncf_defaults.yaml \
     env.save_dir=./save/grmncf/defaults \
     run_type=val \
-    checkpoint.resume_file=./save/grmncf/defaults/ $\color{red}{红色字}$
+    checkpoint.resume_file=./save/grmncf/defaults/best.model
   ```
   
-* to generate prediction json files on the test set:
+* Using `best.model` to generate prediction json files on the test set:
 
  ```bash
  CUDA_VISIBLE_DEVICES=1 mmf_predict datasets=cnmtdata \
@@ -78,13 +78,13 @@ CUDA_VISIBLE_DEVICES=0,1 mmf_run datasets=cnmtdata \
     run_type=test \
     checkpoint.resume_file=./save/grmncf/defaults/best.model
   ```
-* to evaluate the prediction json file
+* to evaluate the prediction `json file`
 
 ```bash
 python /home/zhangsm/Python_project/mmf/projects/m4c_captioner/scripts/textcaps_eval.py \
     --set val \
     --annotation_file /home/zhangsm/.cache/torch/mmf/data/datasets/textcaps/defaults/annotations/imdb_val.npy \
-    --pred_file   /json_file
+    --pred_file   json_file
 ```
  
 ## Annotation:
