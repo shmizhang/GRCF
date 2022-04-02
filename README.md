@@ -9,11 +9,11 @@ Our implementation is based on [mmf](https://github.com/facebookresearch/mmf) fr
   The original Textcaps dataset is from https://textvqa.org/textcaps/dataset/. Following [CNMT's dataset](https://github.com/wzk1015/CNMT), we use it to build our model.
   At last, our data directory (*/home/username/.cache/torch/mmf/data/datasets/cnmt_data/*) structure should look like this:
   
+  |-m4c_textvqa_ocr_en_frcn_features
+  
   |-open_images
   
   |-----detectron_fix_100
-  
-  |-m4c_textvqa_ocr_en_frcn_features
   
   |-imdb
   
