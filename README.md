@@ -25,19 +25,19 @@ Our implementation is based on [mmf](https://github.com/facebookresearch/mmf) fr
   
   (3) At last, our data directory (*/home/username/.cache/torch/mmf/data/datasets/dataname/*) structure should look like this:
   
-  |-m4c_textvqa_ocr_en_frcn_features
+  >m4c_textvqa_ocr_en_frcn_features
   
-  |-open_images
+  >open_images
   
-  |-----detectron_fix_100
+  >>detectron_fix_100
   
-  |-imdb
+  >imdb
   
-  |-----imdb_train.npy
+  >>imdb_train.npy
   
-  |-----imdb_val_filtered_by_image_id.npy
+  >>imdb_val_filtered_by_image_id.npy
   
-  |-----imdb_test_filtered_by_image_id.npy
+  >>imdb_test_filtered_by_image_id.npy
   
 ## Running the code:
 
