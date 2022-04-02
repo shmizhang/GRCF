@@ -10,12 +10,18 @@ Our implementation is based on [mmf](https://github.com/facebookresearch/mmf) fr
   
  *  [object Faster R-CNN Features of TextCaps](https://dl.fbaipublicfiles.com/pythia/features/open_images.tar.gz)
   
- * [OCR Faster R-CNN Features of TextCaps](https://dl.fbaipublicfiles.com/pythia/m4c/data/m4c_textvqa_ocr_en_frcn_features.tar.gz)
+ *  [OCR Faster R-CNN Features of TextCaps](https://dl.fbaipublicfiles.com/pythia/m4c/data/m4c_textvqa_ocr_en_frcn_features.tar.gz)
  
- * [detectron weights of TextCaps](http://dl.fbaipublicfiles.com/pythia/data/detectron_weights.tar.gz)
+ *  [detectron weights of TextCaps](http://dl.fbaipublicfiles.com/pythia/data/detectron_weights.tar.gz)
   
   
   (2) We use [CNMT's imdb](https://github.com/wzk1015/CNMT) file  to build our model.
+  
+  * imdb_train.npy
+  
+  * imdb_val_filtered_by_image_id.npy
+  
+  * imdb_test_filtered_by_image_id.npy
   
   (3) At last, our data directory (*/home/username/.cache/torch/mmf/data/datasets/dataname/*) structure should look like this:
   
