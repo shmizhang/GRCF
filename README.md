@@ -65,7 +65,7 @@ CUDA_VISIBLE_DEVICES=0,1 mmf_run datasets=cnmtdata \
     config=projects/grmncf/configs/grmncf_defaults.yaml \
     env.save_dir=./save/grmncf/defaults \
     run_type=val \
-    checkpoint.resume_file=./save/grmncf/defaults/best.model
+    checkpoint.resume_file=./save/grmncf/defaults/ $\color{red}{红色字}$
   ```
   
 * to generate prediction json files on the test set:
