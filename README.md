@@ -88,7 +88,4 @@ python /home/zhangsm/Python_project/mmf/projects/m4c_captioner/scripts/textcaps_
 ```
  
 ## Annotation:
-  split_dataset.py:                   split the train, valid and test sets.     
-  vae.py: bayesian Learning part.  
-  Yelp_social_relation.py (Equation.11 Fij):  compute the  the friendship similarity in Yelp dataset.  
-  geographical_correlation_level.py (Equation.12):  compute the geographical correlation level between POIs.
+
