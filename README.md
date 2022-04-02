@@ -5,7 +5,7 @@ source_code for GRMNCF (implement of GRMNCF).
   
 
 ## Dataset:
-  The original Textcaps dataset is from     
+  The original Textcaps dataset is from https://textvqa.org/textcaps/dataset/.
 ## Running the code:
    
 ## Annotation:
