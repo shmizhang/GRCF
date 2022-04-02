@@ -4,9 +4,9 @@
 Pytorch implementation  for GRMNCF.  
   
 ## Installation:
-Our implementation is based on [mmf](https://github.com/facebookresearch/mmf) framework, and and built upon M4C-Captioner. Please refer to mmf's document for more details on installation requirements.
+Our implementation is based on [mmf](https://github.com/facebookresearch/mmf) framework, and and built upon [M4C-Captioner](https://github.com/ronghanghu/mmf/tree/project/m4c_captioner_pre_release/projects/M4C_Captioner). Please refer to [mmf's document](https://mmf.sh/docs/) for more details on installation requirements.
 ## Dataset:
-  The original Textcaps dataset is from https://textvqa.org/textcaps/dataset/.
+  The original Textcaps dataset is from https://textvqa.org/textcaps/dataset/. We leverage 
 ## Running the code:
    
 ## Annotation:
