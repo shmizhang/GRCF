@@ -1,9 +1,10 @@
 
 # GRMNCF: Geometrical Relation-aware  Multi-modal Network with  Confidence Fusion for Text-based Image Captioning
-## Desccription of GRMNCF:
-source_code for GRMNCF (implement of GRMNCF).  
+## Introduction:
+Pytorch implementation  for GRMNCF.  
   
-
+## Installation:
+Our implementation is based on [mmf](https://github.com/facebookresearch/mmf) framework, and and built upon M4C-Captioner. Please refer to mmf's document for more details on installation requirements.
 ## Dataset:
   The original Textcaps dataset is from https://textvqa.org/textcaps/dataset/.
 ## Running the code:
