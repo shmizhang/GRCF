@@ -41,14 +41,24 @@ Our implementation is based on [mmf](https://github.com/facebookresearch/mmf) fr
   
 ## Running the code:
 
-(1) to train the grmncf model on the TextCaps training set:
+*  to train the grmncf model on the TextCaps training set:
+
+···Java
 CUDA_VISIBLE_DEVICES=0,1 mmf_run datasets=cnmtdata \
     model=grmncf \
     config=projects/grmncf/configs/grmncf_defaults.yaml \
     env.save_dir=./save/grmncf/defaults \
-    run_type=train_val
-    
+    run_type=train_val   
+···
+
+ * to generate prediction json files for the TextCaps:
  
+ ···CUDA_VISIBLE_DEVICES=1 mmf_predict datasets=cnmtdata \
+    model=grmncf \
+    config=projects/grmncf/configs/grmncf_defaults.yaml \
+    env.save_dir=./save/grmncf/defaults \
+    run_type=test \
+    checkpoint.resume_file=./save/m4c_captioner/defaults/best.model
     
     
    
