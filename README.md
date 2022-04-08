@@ -88,4 +88,9 @@ python /home/zhangsm/Python_project/mmf/projects/m4c_captioner/scripts/textcaps_
 ```
 * You can submit the JSON file of the TextCaps test set to the EvalAI server for the result.
 ## Annotation:
+python=3.7.0
+
+pytorch=1.6.0
+
+huggingface-hub=0.2.1
 
