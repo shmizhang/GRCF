@@ -98,6 +98,7 @@ Some important files' paths are as follows:
 file name | path | description | 
 :---:  | :---: | :---: | 
 grmncf_defaults.yaml | mmf/projects/grmncf/configs/| | 
+defaults.yaml|mmf/mmf/configs/datasets/cnmtdata/||
 grmncf.py|mmf/mmf/models/||
 builder.py, dataset.py|mmf/mmf/datasets/builders/cnmtdata/||
 losses.py, metrics.py|mmf/mmf/modules/||
