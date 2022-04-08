@@ -97,4 +97,5 @@ huggingface-hub=0.2.1
 Some important files' paths are as follows:
 file name | path | description | 
 :---:  | :---: | :---: | 
-GRMNCF best | |CIDEr 106.9 | 
+grmncf_defaults.yaml | mmf/grmncf/configs/| | 
+|||
