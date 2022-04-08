@@ -97,5 +97,5 @@ huggingface-hub=0.2.1
 Some important files' paths are as follows:
 file name | path | description | 
 :---:  | :---: | :---: | 
-grmncf_defaults.yaml | mmf/grmncf/configs/| | 
+grmncf_defaults.yaml | mmf/projects/grmncf/configs/| | 
 |||
