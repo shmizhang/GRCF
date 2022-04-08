@@ -29,7 +29,7 @@ Our implementation is based on [mmf](https://github.com/facebookresearch/mmf) fr
   
   * imdb_test_filtered_by_image_id.npy
   
-  (3) At last, our data directory (*/home/username/.cache/torch/mmf/data/datasets/dataname/*) structure should look like this:
+  (3) At last, our data directory (*/home/`username`/.cache/torch/mmf/data/datasets/`dataname`/*) structure should look like this:
   
   >m4c_textvqa_ocr_en_frcn_features
   
@@ -94,3 +94,7 @@ pytorch=1.6.0
 
 huggingface-hub=0.2.1
 
+Some important files' paths are as follows:
+file name | path | description | 
+:---:  | :---: | :---: | 
+GRMNCF best | |CIDEr 106.9 | 
