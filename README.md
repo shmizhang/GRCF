@@ -7,7 +7,7 @@ Pytorch implementation  for GRMNCF.
 We release the following pretrained GRMNCF model  for the TextCaps dataset:
 description | download link | validation set | test set|
 :---:  | :---: | :---: | :---:|
-GRMNCF best |[Baidu Netdisk](https://pan.baidu.com/s/1DDW7ev4v9VVkdWz4u5wDmg) code: `ampz`|CIDEr 106.9 | CIDEr 101.2 |
+GRMNCF best |[Baidu Netdisk](https://pan.baidu.com/s/1DDW7ev4v9VVkdWz4u5wDmg) code: `ampz`|`BLEU-4` 25.7, `CIDEr` 106.9 | `CIDEr` 101.2 |
 
 ## Installation:
 Our implementation is based on [mmf](https://github.com/facebookresearch/mmf) framework, and and built upon [M4C-Captioner](https://github.com/ronghanghu/mmf/tree/project/m4c_captioner_pre_release/projects/M4C_Captioner). Please refer to [mmf's document](https://mmf.sh/docs/) for more details on installation requirements.
