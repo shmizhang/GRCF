@@ -52,7 +52,7 @@ Our implementation is based on [mmf](https://github.com/facebookresearch/mmf) fr
 ```bash
 CUDA_VISIBLE_DEVICES=0,1 mmf_run datasets=cnmtdata \
     model=grcf \
-    config=projects/grmncf/configs/grcf_defaults.yaml \
+    config=projects/grcf/configs/grcf_defaults.yaml \
     env.save_dir=./save/grcf/defaults \
     run_type=train_val   
 ```
@@ -62,7 +62,7 @@ CUDA_VISIBLE_DEVICES=0,1 mmf_run datasets=cnmtdata \
  ```bash
  CUDA_VISIBLE_DEVICES=1 mmf_predict datasets=cnmtdata \
     model=grcf \
-    config=projects/grmncf/configs/grcf_defaults.yaml \
+    config=projects/grcf/configs/grcf_defaults.yaml \
     env.save_dir=./save/grcf/defaults \
     run_type=val \
     checkpoint.resume_file=./save/grcf/defaults/best.model
@@ -73,7 +73,7 @@ CUDA_VISIBLE_DEVICES=0,1 mmf_run datasets=cnmtdata \
  ```bash
  CUDA_VISIBLE_DEVICES=1 mmf_predict datasets=cnmtdata \
     model=grcf \
-    config=projects/grmncf/configs/grcf_defaults.yaml \
+    config=projects/grcf/configs/grcf_defaults.yaml \
     env.save_dir=./save/grcf/defaults \
     run_type=test \
     checkpoint.resume_file=./save/grcf/defaults/best.model
