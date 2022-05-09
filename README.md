@@ -1,13 +1,13 @@
 
-# GRMNCF: Geometrical Relation-aware  Multi-modal Network with  Confidence Fusion for Text-based Image Captioning
+# GRCF: Geometrical Relation-aware  Multi-modal Network with  Confidence Fusion for Text-based Image Captioning
 ## Introduction:
-Pytorch implementation  for GRMNCF.  
+Pytorch implementation  for GRCF.  
   
-## Pretrained GRMNCF model:
-We release the following pretrained GRMNCF model  for the TextCaps dataset:
+## Pretrained GRCF model:
+We release the following pretrained GRCF model  for the TextCaps dataset:
 description | download link | validation set | test set|
 :---:  | :---: | :---: | :---:|
-GRMNCF best |[Baidu Netdisk](https://pan.baidu.com/s/1DDW7ev4v9VVkdWz4u5wDmg) code: `ampz`|`BLEU-4` 25.7, `CIDEr` 106.9 | `CIDEr` 101.2 |
+GRCF best |[Baidu Netdisk](https://pan.baidu.com/s/1DDW7ev4v9VVkdWz4u5wDmg) code: `ampz`|`BLEU-4` 25.7, `CIDEr` 106.9 | `CIDEr` 101.2 |
 
 ## Installation:
 Our implementation is based on [mmf](https://github.com/facebookresearch/mmf) framework, and and built upon [M4C-Captioner](https://github.com/ronghanghu/mmf/tree/project/m4c_captioner_pre_release/projects/M4C_Captioner). Please refer to [mmf's document](https://mmf.sh/docs/) for more details on installation requirements.
@@ -51,9 +51,9 @@ Our implementation is based on [mmf](https://github.com/facebookresearch/mmf) fr
 
 ```bash
 CUDA_VISIBLE_DEVICES=0,1 mmf_run datasets=cnmtdata \
-    model=grmncf \
-    config=projects/grmncf/configs/grmncf_defaults.yaml \
-    env.save_dir=./save/grmncf/defaults \
+    model=grcf \
+    config=projects/grmncf/configs/grcf_defaults.yaml \
+    env.save_dir=./save/grcf/defaults \
     run_type=train_val   
 ```
 
@@ -61,22 +61,22 @@ CUDA_VISIBLE_DEVICES=0,1 mmf_run datasets=cnmtdata \
  
  ```bash
  CUDA_VISIBLE_DEVICES=1 mmf_predict datasets=cnmtdata \
-    model=grmncf \
-    config=projects/grmncf/configs/grmncf_defaults.yaml \
-    env.save_dir=./save/grmncf/defaults \
+    model=grcf \
+    config=projects/grmncf/configs/grcf_defaults.yaml \
+    env.save_dir=./save/grcf/defaults \
     run_type=val \
-    checkpoint.resume_file=./save/grmncf/defaults/best.model
+    checkpoint.resume_file=./save/grcf/defaults/best.model
   ```
   
 * Using `best.model` to generate prediction json files on the test set:
 
  ```bash
  CUDA_VISIBLE_DEVICES=1 mmf_predict datasets=cnmtdata \
-    model=grmncf \
-    config=projects/grmncf/configs/grmncf_defaults.yaml \
-    env.save_dir=./save/grmncf/defaults \
+    model=grcf \
+    config=projects/grmncf/configs/grcf_defaults.yaml \
+    env.save_dir=./save/grcf/defaults \
     run_type=test \
-    checkpoint.resume_file=./save/grmncf/defaults/best.model
+    checkpoint.resume_file=./save/grcf/defaults/best.model
   ```
 * to evaluate the prediction `json file` of the TextCaps validation set:
 
@@ -97,8 +97,8 @@ huggingface-hub=0.2.1
 Some important files' paths are as follows:
 file name | path | description | 
 :---:  | :---: | :---: | 
-grmncf_defaults.yaml | mmf/projects/grmncf/configs/| | 
+grcf_defaults.yaml | mmf/projects/grcf/configs/| | 
 defaults.yaml|mmf/mmf/configs/datasets/cnmtdata/||
-grmncf.py|mmf/mmf/models/||
+grcf.py|mmf/mmf/models/||
 builder.py, dataset.py|mmf/mmf/datasets/builders/cnmtdata/||
 losses.py, metrics.py|mmf/mmf/modules/||
