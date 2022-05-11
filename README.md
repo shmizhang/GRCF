@@ -97,8 +97,8 @@ huggingface-hub=0.2.1
 Some important files' paths are as follows:
 file name | path | description | 
 :---:  | :---: | :---: | 
-grcf_defaults.yaml | mmf/projects/grcf/configs/| | 
-defaults.yaml|mmf/mmf/configs/datasets/cnmtdata/||
-grcf.py|mmf/mmf/models/||
-builder.py, dataset.py|mmf/mmf/datasets/builders/cnmtdata/||
-losses.py, metrics.py|mmf/mmf/modules/||
+grcf_defaults.yaml | projects/grcf/configs/| | 
+defaults.yaml|mmf/configs/datasets/cnmtdata/||
+grcf.py|mmf/models/||
+builder.py, dataset.py|mmf/datasets/builders/cnmtdata/||
+losses.py, metrics.py|mmf/modules/||
