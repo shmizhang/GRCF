@@ -225,10 +225,8 @@ class MM4C(BaseModel):
             self.linear_ocr_feat_to_mmt_in(ocr_feat)
         )  + self.ocr_conf_layer_norm(self.linear_ocr_conf_to_mmt_in(ocr_conf)) + self.ocr_bbox_layer_norm(self.linear_ocr_bbox_to_mmt_in(ocr_bbox))
         
-        #ocr_bbox_emb=self.ocr_bbox_layer_norm(self.linear_ocr_bbox_to_mmt_in(ocr_bbox))
         ocr_mmt_in = self.ocr_drop(ocr_mmt_in)
         fwd_results["ocr_mmt_in"] = ocr_mmt_in
-        #fwd_results["ocr_bbox_emb"] =ocr_bbox_emb
         # binary mask of valid OCR vs padding
         ocr_nums = sample_list.context_info_0.max_features
         fwd_results["ocr_mask"] = _get_mask(ocr_nums, ocr_mmt_in.size(1))
@@ -236,23 +234,18 @@ class MM4C(BaseModel):
 
         # multiple_list helps to mask out the same word from different sources (vocab and OCR, or different OCR)
         num_samples = len(sample_list.ocr_token)
-        #print(num_samples), each ocr's id in vocab
         self.ocr_to_vocab = torch.ones((num_samples,50), device=torch.device("cuda"), dtype=torch.int64) * self.answer_processor.UNK_IDX
         #[b_s, 50]
         #[b_s, 6786]
         self.multiple_list = [[[] for i in range(6786)] for j  in range(num_samples)]
         #[6736]
         for i in range(num_samples):
-            #print(sample_list.ocr_token[i])
-            #print(sample_list.ocr_token[i])
             for j in range(len(sample_list.ocr_token[i])):
                 token = sample_list.ocr_token[i][j]
-                #print(token)
                 if token in self.vocab_dict.keys():
                     vidx = self.vocab_dict[token]
                     self.ocr_to_vocab[i][j] = vidx
                     self.multiple_list[i][vidx].append(6736+j)
-        #print(self.multiple_list)
         for i in range(num_samples):
             for j in range(len(self.vocab_dict)):
                 for k in self.multiple_list[i][j]:
@@ -268,10 +261,6 @@ class MM4C(BaseModel):
         p_correlation = rbf_kernel(place_coordinates, gamma=gamma)
         #p_correlation1 =( p_correlation+ rbf_kernel(place_coordinates1, gamma=gamma))/2
         np.fill_diagonal(p_correlation, 0)
-        #p_correlation[p_correlation < 0.1] = 0
-        #place_correlation = csr_matrix(place_correlation)
-
-        #return torch.Tensor(p_correlation1)
         return p_correlation
     def compute_relation_adj(self,relation_obj,fwd_results):
         relation_obj = sp.coo_matrix(relation_obj) + sp.eye(relation_obj.shape[0])
@@ -293,20 +282,6 @@ class MM4C(BaseModel):
         #[b_s,50,4]
         ocr_bbox = sample_list.ocr_bbox_coordinates.cpu()
 
-        #obj_ocr_bbox=torch.cat([obj_bbox,ocr_bbox],dim=1)
-        #b_s¸ö[150,150]
-        #relation=[]
-        #for i in range(obj_ocr_bbox.shape[0]):
-        #    tmp=self.cal_place_pairwise_dist(obj_ocr_bbox[i][:,0:2],obj_ocr_bbox[i][:,2:4])
-        #    tmp_adj=self.compute_relation_adj(tmp)
-        #    relation.append(tmp_adj)
-        #relation=torch.cat(relation,dim=0).reshape(obj_bbox.shape[0],obj_ocr_bbox.shape[1],obj_ocr_bbox.shape[1])
-        #relation=relation.cuda()
-        #fwd_results["obj_ocr_relation"]=relation
-        #relation=torch.cat(relation,dim=0).reshape(obj_bbox.shape[0],obj_ocr_bbox.shape[1],obj_ocr_bbox.shape[1])
-        #relation=relation.cuda()
-        #fwd_results["obj_ocr_relation"]=relation
-
         obj_adj_list=[]
         ocr_adj_list=[]
         for i in range(obj_bbox.shape[0]):
@@ -327,8 +302,7 @@ class MM4C(BaseModel):
         obj_relation=torch.cat(obj_adj_list,dim=0).reshape(obj_bbox.shape[0],obj_bbox.shape[1],obj_bbox.shape[1])
         obj_relation=obj_relation.cuda()
         fwd_results["relation_obj"]=obj_relation
-        #print("obj")
-        #print(obj_relation)    
+     
     def _forward_transformer1(self, sample_list, fwd_results):
       
         visual_emb, text_emb,obj_emb,ocr_emb_gcn,confidence1_score, confidence2_score = self.transformer1(
@@ -373,18 +347,13 @@ class MM4C(BaseModel):
         dynamic_ocr_scores, _ = self.ocr_ptr_net(
             mmt_dec_output, mmt_ocr_output, ocr_mask
         )
-        #ocr_geo_scores,_= self.ocr_ptr_net(fwd_results['mmt_dec_output'], fwd_results['ocr_emb'], fwd_results['ocr_mask'])
-        #if flag:
-        #       dynamic_ocr_scores+= 0.01*ocr_geo_scores
+
         #[b_s, 30, 6736]=[b_s, 30, 6736],  [b_s, 30, 50], [b_s, 30, 50]
         fixed_scores.scatter_add_(2, self.ocr_to_vocab, dynamic_ocr_scores)
-        #print(fixed_scores.size())
         scores = torch.cat([fixed_scores, dynamic_ocr_scores], dim=-1) # (b_s,30,6786)
-      
-        #fwd_results['ocr_geo_scores'] = ocr_geo_scores
         fwd_results['scores'] = scores
         fwd_results["scores"][..., self.answer_processor.UNK_IDX] = -1e10
-        #fwd_results['geo_score']= geo_ocr_score
+
     def _forward_mmt_and_output(self, sample_list, fwd_results):
         if self.training:
             fwd_results["prev_inds"] = sample_list.train_prev_inds.clone()
@@ -418,10 +387,7 @@ class MM4C(BaseModel):
                             repetition_mask[sample_idx, step+1:, same_wd] =  self.coverage_ratio
                         if wd <6736: #from the fixed vocabulary
                            continue
-                       
-                        #fwd_results['ocr_emb'][sample_idx,wd-6735]=0
-                        #print(geo_score[sample_idx,step+1:,6736:].size())
-                        #print(geo_ocr_score[sample_idx,step+1].size())
+
                         geo_score[sample_idx,step+1:,6736:]+= geo_ocr_score[sample_idx,step+1:]
                 fwd_results["scores"] = fwd_results["scores"] + repetition_mask +0.0005*geo_score  
                 # find the highest scoring output (either a fixed vocab
@@ -516,10 +482,6 @@ class MMT(BertPreTrainedModel):
         obj_max_num = obj_mask.size(-1)
         ocr_max_num = ocr_mask.size(-1)
         dec_max_num = dec_mask.size(-1)
-        #txt_begin = 0
-        #txt_end = txt_begin + txt_max_num
-        #txt_end = txt_begin
-        #ocr_begin = txt_max_num + obj_max_num
         ocr_begin =obj_max_num
         ocr_end = ocr_begin + ocr_max_num
 
@@ -551,12 +513,10 @@ class MMT(BertPreTrainedModel):
         )
 
         mmt_seq_output = encoder_outputs[0]
-        #mmt_txt_output = mmt_seq_output[:, txt_begin:txt_end]
         mmt_ocr_output = mmt_seq_output[:, ocr_begin:ocr_end]
         mmt_dec_output = mmt_seq_output[:, -dec_max_num:]
         results = {
             "mmt_seq_output": mmt_seq_output,
-            #"mmt_txt_output": mmt_txt_output,
             "mmt_ocr_output": mmt_ocr_output,
             "mmt_dec_output": mmt_dec_output,
         }
@@ -586,8 +546,6 @@ class PrevPredEmbeddings(nn.Module):
         batch_size = prev_inds.size(0)
         seq_length = prev_inds.size(1)
         ans_num = ans_emb.size(0)
-        #print("prev_inds")
-        #print(prev_inds)
         # apply layer normalization to both answer embedding and OCR embedding
         # before concatenation, so that they have the same scale
         ans_emb = self.ans_layer_norm(ans_emb)
@@ -595,26 +553,19 @@ class PrevPredEmbeddings(nn.Module):
         assert ans_emb.size(-1) == ocr_emb.size(-1)
         #[b_s,6736,768]
         ans_emb = ans_emb.unsqueeze(0).expand(batch_size, -1, -1)
-        #print(ans_emb.size())
+
         #[b_s,6786,768]
         ans_ocr_emb_cat = torch.cat([ans_emb, ocr_emb], dim=1)
-        #print(ans_ocr_emb_cat.size())
         #[b_s,30,768]
         raw_dec_emb = _batch_gather(ans_ocr_emb_cat, prev_inds)
 
         # Add position and type embedding for previous predictions
         position_ids = torch.arange(seq_length, dtype=torch.long, device=ocr_emb.device)
         position_ids = position_ids.unsqueeze(0).expand(batch_size, seq_length)
-        #print(position_ids)
         position_embeddings = self.position_embeddings(position_ids)
-        #print("positon")
-        #print(position_embeddings.size())
         # Token type ids: 0 -- vocab; 1 -- OCR
         token_type_ids = prev_inds.ge(ans_num).long()
-        #print(token_type_ids)
-        #print(token_type_ids.size())
         token_type_embeddings = self.token_type_embeddings(token_type_ids)
-        #print(token_type_embeddings)
         embeddings = position_embeddings + token_type_embeddings
         embeddings = self.emb_layer_norm(embeddings)
         embeddings = self.emb_dropout(embeddings)
@@ -622,7 +573,7 @@ class PrevPredEmbeddings(nn.Module):
 
         return dec_emb
 
-#[b_s,6786,768]£¬ [b_s,30]
+#[b_s,6786,768]Â£Â¬ [b_s,30]
 def _batch_gather(x, inds):
     assert x.dim() == 3
     batch_size = x.size(0)
