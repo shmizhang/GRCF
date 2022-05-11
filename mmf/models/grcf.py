@@ -450,8 +450,6 @@ class MMT(BertPreTrainedModel):
 
     def forward(
         self,
-        #txt_emb,
-        #txt_mask,
         obj_emb,
         obj_mask,
         ocr_emb,
@@ -478,7 +476,6 @@ class MMT(BertPreTrainedModel):
         attention_mask = torch.cat([ obj_mask, ocr_mask, dec_mask], dim=1)
 
         # offsets of each modality in the joint embedding space
-        #txt_max_num = txt_mask.size(-1)
         obj_max_num = obj_mask.size(-1)
         ocr_max_num = ocr_mask.size(-1)
         dec_max_num = dec_mask.size(-1)
@@ -584,14 +581,11 @@ def _batch_gather(x, inds):
     #[0*6786, 1*6786, (b_s-1)*6786]
     batch_offsets = torch.arange(batch_size, device=inds.device) * length
     batch_offsets = batch_offsets.unsqueeze(-1)
-    #print(batch_offsets)
     assert batch_offsets.dim() == inds.dim()
     #[b_s, 30]
     inds_flat = batch_offsets + inds
-    #print(inds_flat)
     #[b_s, 30, 768]
     results = F.embedding(inds_flat, x_flat)
-    #print(results.size())
     return results
       
 
@@ -616,9 +610,6 @@ class Transformer1(nn.Module):
         visual_emb_gcn=self.gcn_obj(visual_emb,obj_relation)
         visual_emb=visual_emb+visual_emb_gcn
         ocr_emb_gcn=self.gcn_ocr(text_emb,ocr_relation)
-        #print("text")
-        #print(text_emb)
-        #print(ocr_emb_gcn)
         text_emb=text_emb+ocr_emb_gcn
         confidence1_score = self.anchor_fc(text_emb).squeeze(2)
         
