@@ -51,7 +51,6 @@ class MM4C(BaseModel):
         
     def _build_vocab_dict(self):
         self.vocab_dict = {}
-        #print(self.config["model_data_dir"])
         model_data_dir=self.config["model_data_dir"]
         with open("/home/zhangsm/.cache/torch/mmf/data/datasets/cnmt_data/vocab_textcap_threshold_10.txt") as f:
             lines = f.readlines()
@@ -144,7 +143,6 @@ class MM4C(BaseModel):
         self.classifier = nn.Linear(self.mmt_config.hidden_size,6736)
   
         self.vocab_size = num_choices
-        #print(self.vocab_size)
         self.answer_processor = registry.get(
             self._datasets[0] + "_answer_processor"
         )
@@ -184,10 +182,8 @@ class MM4C(BaseModel):
             self.linear_obj_feat_to_mmt_in(obj_feat)
         ) + self.obj_bbox_layer_norm(self.linear_obj_bbox_to_mmt_in(obj_bbox))
         
-        #obj_bbox_emb=self.obj_bbox_layer_norm(self.linear_obj_bbox_to_mmt_in(obj_bbox))
         obj_mmt_in = self.obj_drop(obj_mmt_in)
         fwd_results["obj_mmt_in"] = obj_mmt_in
-        #fwd_results["obj_bbox_emb"] = obj_bbox_emb
         # binary mask of valid object vs padding
         obj_nums = sample_list.image_info_0.max_features
         fwd_results["obj_mask"] = _get_mask(obj_nums, obj_mmt_in.size(1))
@@ -259,18 +255,14 @@ class MM4C(BaseModel):
     # this method calculates the pair-wise rbf distance
         gamma = 60
         p_correlation = rbf_kernel(place_coordinates, gamma=gamma)
-        #p_correlation1 =( p_correlation+ rbf_kernel(place_coordinates1, gamma=gamma))/2
         np.fill_diagonal(p_correlation, 0)
         return p_correlation
     def compute_relation_adj(self,relation_obj,fwd_results):
         relation_obj = sp.coo_matrix(relation_obj) + sp.eye(relation_obj.shape[0])
-        #relation_obj = sp.coo_matrix(relation_obj)
-        #row_sum = np.array(relation_obj.sum(1))
         row_sum=np.array(relation_obj.sum(1))
         row_sum[row_sum==0]=1
         d_inv_sqrt = np.power(row_sum, -0.5).flatten()
         d_inv_sqrt[np.isinf(d_inv_sqrt)] = 0.
-        # print(d_inv_sqrt)
         d_mat_inv_sqrt = sp.diags(d_inv_sqrt)
         result=d_mat_inv_sqrt.dot(relation_obj).dot(d_mat_inv_sqrt)
  
@@ -357,7 +349,6 @@ class MM4C(BaseModel):
     def _forward_mmt_and_output(self, sample_list, fwd_results):
         if self.training:
             fwd_results["prev_inds"] = sample_list.train_prev_inds.clone()
-            #print(fwd_results["prev_inds"])
             self._forward_mmt(sample_list, fwd_results)
             self._forward_output(sample_list, fwd_results,1)
         else:
@@ -504,7 +495,6 @@ class MMT(BertPreTrainedModel):
         extended_attention_mask = (1.0 - extended_attention_mask) * -10000.0
         assert not extended_attention_mask.requires_grad
         head_mask = [None] * self.config.num_hidden_layers
-        #print( head_mask.size())
         encoder_outputs = self.encoder(
             encoder_inputs, extended_attention_mask, head_mask=head_mask
         )
@@ -642,8 +632,6 @@ class GCN_Layer(nn.Module):
         
         
     def forward(self, Input,adj):
-        #print(Input.size())
-        #print(adj.size())
         out1=self.W(Input)
         out1=torch.relu(torch.matmul(adj,out1))
         out2=self.W2(out1)
