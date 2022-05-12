@@ -901,16 +901,6 @@ class SoftmaxAnchorPredLoss(nn.Module):
         anchor_loss *= loss_mask
         anchor_loss = anchor_loss.sum(-1).mean()
         
-        #targets = torch.squeeze(sample_list['ocr_confidence']) > 0
-        #scores = model_output["anchor_pred"]  # [B, M]
-        #loss_mask = model_output["ocr_mask"]        # [B, M]
-        #losses = F.binary_cross_entropy(
-        #    scores, targets.float(), reduction="none"
-        #)
-        #losses *= loss_mask
-
-        #count = torch.max(torch.sum(loss_mask), self.one.to(losses.device))
-        #anchor_loss = torch.sum(losses) / count
         
         return anchor_loss
 
@@ -921,10 +911,7 @@ class GraphPredLoss(nn.Module):
         self.one = torch.Tensor([1.])
 
     def forward(self, sample_list, model_output):
-      #targets = sample_list["anchor_score"] > 0
-      # losses = F.binary_cross_entropy_with_logits(
-        #     scores, targets.float(), reduction="none"
-        # )
+
         
         loss_mask = model_output["ocr_mask"]
         #graph_pred
