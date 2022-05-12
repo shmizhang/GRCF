@@ -8,7 +8,6 @@ optimizer:
 dataset_config:
   cnmtdata:
     zoo_requirements:
-    #- textvqa.defaults
     - cnmtdata.defaults
     features:
       train:
@@ -17,22 +16,12 @@ dataset_config:
       - cnmt_data/open_images/detectron_fix_100/fc6/train,cnmt_data/m4c_textvqa_ocr_en_frcn_features/train_images
       test:
       - cnmt_data/open_images/detectron_fix_100/fc6/test,cnmt_data/m4c_textvqa_ocr_en_frcn_features/test_images
-    #annotations:
-     # train:
-      #- cnmt_data/imdb/imdb_train.npy
-      #val:
-      #- cnmt_data/imdb/imdb_val_filtered_by_image_id.npy  # only one sample per image_id
-      #test:
-      #- cnmt_data/imdb/imdb_test_filtered_by_image_id.npy  # only one sample per image_id  
+ 
 model_config:
   grcf:
-  #grmncf1:
     lr_scale_frcn: 0.1
     lr_scale_text_bert: 0.1
     lr_scale_mmt: 1.0  # no scaling
-    #text_bert_init_from_bert_base: true
-    #text_bert:
-    #  num_hidden_layers: 3
     obj:
       mmt_in_dim: 2048
       dropout_prob: 0.1
@@ -100,11 +89,8 @@ training:
     warmup_iterations: 1000
     #warmup_iterations: 1000
     max_iterations: 12000
-    #max_iterations: 12000
     batch_size: 128
-    #batch_size: 128
     num_workers: 1
-    #num_workers: 8
     task_size_proportional_sampling: true
     early_stop:
       criteria: cnmtdata/textcaps_bleu4
