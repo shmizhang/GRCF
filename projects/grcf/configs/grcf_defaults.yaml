@@ -59,7 +59,7 @@ model_config:
         weight: 1
         params: {}
       - type: conf1_loss
-        weight: 1.0
+        weight: 1
         params: {}
       - type: conf2_loss
         weight: 1
