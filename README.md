@@ -30,6 +30,7 @@ Our implementation is based on [mmf](https://github.com/facebookresearch/mmf) fr
   * imdb_test_filtered_by_image_id.npy
   
   (3) At last, our data directory (*/home/`username`/.cache/torch/mmf/data/datasets/*) structure should look like this:
+  
   textcaps
   
   >defaults
