@@ -12,7 +12,7 @@ GRCF best |[Baidu Netdisk](https://pan.baidu.com/s/1DDW7ev4v9VVkdWz4u5wDmg) code
 ## Installation:
 Our implementation is based on [mmf](https://github.com/facebookresearch/mmf) framework, and and built upon [M4C-Captioner](https://github.com/ronghanghu/mmf/tree/project/m4c_captioner_pre_release/projects/M4C_Captioner). Please refer to [mmf's document](https://mmf.sh/docs/) for more details on installation requirements.
 ## Dataset:
-  (1) The original Textcaps dataset is from https://textvqa.org/textcaps/dataset/.  Please download them from the links below and and extract them under dataname  directory:
+  (1) The original Textcaps dataset is from https://textvqa.org/textcaps/dataset/.  Please download them from the links below and extract them under dataname  directory:
   
  *  [object Faster R-CNN Features of TextCaps](https://dl.fbaipublicfiles.com/pythia/features/open_images.tar.gz)
   
