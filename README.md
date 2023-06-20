@@ -31,10 +31,15 @@ Our implementation is based on [mmf](https://github.com/facebookresearch/mmf) fr
   
   (3) At last, our data directory (*/home/`username`/.cache/torch/mmf/data/datasets/*) structure should look like this:
   textcaps
+  
   >defaults
+
   >>detectron
+
   >>extras
+
   dataname
+  
   >m4c_textvqa_ocr_en_frcn_features
   
   >open_images
