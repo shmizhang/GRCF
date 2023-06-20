@@ -29,8 +29,9 @@ Our implementation is based on [mmf](https://github.com/facebookresearch/mmf) fr
   
   * imdb_test_filtered_by_image_id.npy
   
-  (3) At last, our data directory (*/home/`username`/.cache/torch/mmf/data/datasets/`dataname`/*) structure should look like this:
+  (3) At last, our data directory (*/home/`username`/.cache/torch/mmf/data/datasets/*) structure should look like this:
   
+  dataname
   >m4c_textvqa_ocr_en_frcn_features
   
   >open_images
