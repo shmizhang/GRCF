@@ -380,7 +380,7 @@ class MM4C(BaseModel):
                            continue
 
                         geo_score[sample_idx,step+1:,6736:]+= geo_ocr_score[sample_idx,step+1:]
-                fwd_results["scores"] = fwd_results["scores"] + repetition_mask +0.0005*geo_score  
+                fwd_results["scores"] = fwd_results["scores"] + repetition_mask +0.4*geo_score  
                 # find the highest scoring output (either a fixed vocab
                 # or an OCR), and add it to prev_inds for auto-regressive
                 # decoding
