@@ -7,7 +7,7 @@ Pytorch implementation  for GRCF.
 We release the following pretrained GRCF model  for the TextCaps dataset:
 description | download link | validation set | test set|
 :---:  | :---: | :---: | :---:|
-GRCF best |[Baidu Netdisk](https://pan.baidu.com/s/1DDW7ev4v9VVkdWz4u5wDmg) code: `ampz`|`BLEU-4` 25.7, `CIDEr` 106.9 | `BLEU-4` 21.0, `CIDEr` 101.2 |
+GRCF best |[Baidu Netdisk](https://pan.baidu.com/s/1DDW7ev4v9VVkdWz4u5wDmg) code: `ampz`|`BLEU-4` 25.7, `CIDEr` 106.9 | `BLEU-4` 21.0, `CIDEr` 96.6 |
 
 ## Installation:
 Our implementation is based on [mmf](https://github.com/facebookresearch/mmf) framework, and and built upon [M4C-Captioner](https://github.com/ronghanghu/mmf/tree/project/m4c_captioner_pre_release/projects/M4C_Captioner). Please refer to [mmf's document](https://mmf.sh/docs/) for more details on installation requirements.
